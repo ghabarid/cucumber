@@ -19,11 +19,17 @@ pipeline{
             steps{
                 withMaven(maven: 'maven') {
                     sh 'mvn clean test'
-    // some block
             }
             }
         }
-        
+
+        stage("Cucumber report "){
+                    steps{
+                      cucumber buildStatus: "Unstable",
+                      fileIncludePattern: "**/cucumber.json",
+                      jsonReportTarget: "target"
+                    }
+                }
 
     }
     
